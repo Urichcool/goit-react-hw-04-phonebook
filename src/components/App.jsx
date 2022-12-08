@@ -8,7 +8,7 @@ import {
 } from './App,styled';
 import { AppAddContactsForm } from './AppAddContactsForm';
 import AppContactsList from './AppContactsList';
-import AppContactsInput from './AppContactsFilterInput';
+import { AppContactsFilterInput } from './AppContactsFilterInput';
 
 
 
@@ -16,12 +16,12 @@ export const App = () => {
   const [contacts, setContacts] = useLocalStorage('contacts', []);
   const [filter, setFilter] = useState('');
 
+   const formInputHandler = data => {
+     setFilter(data);
+   };
+
   const formSubmitHandler = data => {
     setContacts(state => [...state, ...data]);
-  };
-
-  const formInputHandler = data => {
-    setFilter(data);
   };
 
   const setContact = id => {
@@ -36,7 +36,7 @@ export const App = () => {
         {contacts.length !== 0 && (
           <>
             <ContactsTitle>Contacts</ContactsTitle>
-            <AppContactsInput filter={formInputHandler} />
+            <AppContactsFilterInput filter={formInputHandler} />
             <AppContactsList
               contacts={contacts}
               filter={filter}
